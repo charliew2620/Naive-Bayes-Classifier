@@ -3,7 +3,7 @@
 #include <core/training_data.h>
 
 TEST_CASE("Check that 126 is the best class") {
-  REQUIRE(naivebayes::Placeholder().GetBestClass() == "CS 126");
+  REQUIRE(naivebayes::TrainingData().GetBestClass() == "CS 126");
 }
 
 /*

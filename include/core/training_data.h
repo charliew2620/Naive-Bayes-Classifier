@@ -1,14 +1,28 @@
 #include <string>
+#include <map>
+#include <vector>
 
 namespace naivebayes {
+    using namespace std;
 
-class Placeholder {
- public:
-  std::string GetBestClass() const;
+    class TrainingData {
+    public:
+        string GetBestClass() const;
 
-private:
-    const static int kLaplaceSmoothing = 1;
-};
+        // each class has a probability value
+        // each pixel has a probability value
+        // each P(class=c|all pixel values) has a probability value
+
+    private:
+        const static int kLaplaceSmoothing = 1;
+
+        map<int, double> calculate_class_probability(map<int, vector<vector<float>>> data, float training_label);
+
+        // result of this method is then passed into class probability method to calculate?
+        map<int, vector<vector<double>>> calculate_image_probability(vector<vector<float>> data, float training_label);
+
+
+    };
 
 }  // namespace naivebayes
 
