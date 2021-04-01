@@ -21,6 +21,7 @@ namespace naivebayes {
         // result of this method is then passed into class probability method to calculate?
         map<int, vector<vector<double>>> calculate_image_probability(vector<vector<float>> data, float training_label);
 
+        istream &operator>>(istream &is);
 
     };
 
