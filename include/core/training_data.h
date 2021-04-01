@@ -5,6 +5,9 @@ namespace naivebayes {
 class Placeholder {
  public:
   std::string GetBestClass() const;
+
+private:
+    const static int kLaplaceSmoothing = 1;
 };
 
 }  // namespace naivebayes
