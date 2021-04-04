@@ -9,7 +9,6 @@ namespace naivebayes {
 
         friend istream& operator >> (istream& input, Model& model);
 
-
     };
 
 }  // namespace naivebayes
