@@ -4,10 +4,6 @@
 namespace naivebayes {
     using namespace std;
 
-    std::string TrainingData::GetBestClass() const {
-        return "CS 126";
-    }
-
     TrainingData::TrainingData(size_t image_size, size_t image_count) {
         image_size_ = image_size;
         image_count_ = image_count;

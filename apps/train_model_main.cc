@@ -1,12 +1,17 @@
 #include <iostream>
 
 #include <core/training_data.h>
+#include <fstream>
 
 // TODO: You may want to change main's signature to take in argc and argv
-int main() {
-  // TODO: Replace this with code that reads the training data, trains a model,
-  // and saves the trained model to a file.
+int main(int arg, char** argv) {
 
-  std::ifstream ifstream("")
-  return 0;
+    if (arg >= 2) {
+        std::ifstream stream(argv[1]);
+        naivebayes::TrainingData training_data(28, 5000);
+        stream >> training_data;
+
+        return 0;
+    }
+  return 1;
 }
