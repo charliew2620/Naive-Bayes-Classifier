@@ -1,13 +1,16 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <core/image.h>
 
 namespace naivebayes {
     using namespace std;
 
     class TrainingData {
     public:
+        TrainingData(size_t image_size, size_t image_count);
         string GetBestClass() const;
+        friend istream& operator >> (istream& input,TrainingData& data);
 
         // each class has a probability value
         // each pixel has a probability value
@@ -15,13 +18,10 @@ namespace naivebayes {
 
     private:
         const static int kLaplaceSmoothing = 1;
+        size_t image_size_;
+        size_t image_count_;
 
-        map<int, double> calculate_class_probability(map<int, vector<vector<float>>> data, float training_label);
-
-        // result of this method is then passed into class probability method to calculate?
-        map<int, vector<vector<double>>> calculate_image_probability(vector<vector<float>> data, float training_label);
-
-        istream &operator>>(istream &is);
+        vector<Image> images_;
 
     };
 
