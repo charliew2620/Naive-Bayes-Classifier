@@ -34,9 +34,13 @@ namespace naivebayes {
                     }
                 }
             }
-            Image image(label, data.image_size_, pixels);
-            data.images_.push_back(image);
+            data.images_.emplace_back(label, data.image_size_, pixels);
         }
         return input;
     }
+
+    vector<Image> TrainingData::getImages() const {
+        return images_;
+    }
+
 }  // namespace naivebayes
