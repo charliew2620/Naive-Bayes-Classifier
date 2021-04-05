@@ -9,9 +9,22 @@ namespace naivebayes {
 
     class TrainingData {
     public:
+        /**
+         * TrainingData constructor.
+         * @param image_size image size of an image.
+         * @param image_count number of images in a file.
+         */
         TrainingData(size_t image_size, size_t image_count);
+        
+        /**
+         * Operator used to parse data.
+         * @param input istream parameter.
+         * @param data TrainingData object passed as parameter.
+         * @return input.
+         */
         friend istream& operator >> (istream& input,TrainingData& data);
 
+        // getters
         const vector<Image> &GetImages() const;
         const size_t &GetImageCount() const;
         const size_t &GetImageSize() const;
@@ -29,6 +42,12 @@ namespace naivebayes {
         
         vector<int> num_of_images_;
         
+        /**
+         * Helper method to fill image with pixels of different shades.
+         * @param input istream parameter. 
+         * @param data TrainingData object passed as parameter.
+         * @return 2d vector of pixels.
+         */
         vector<vector<int>> FillImageWithPixels(istream& input,TrainingData& data);
     };
 

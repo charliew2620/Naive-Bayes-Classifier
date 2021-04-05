@@ -3,6 +3,7 @@
 #include <core/training_data.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 TEST_CASE("Tests basic getters") {
     std::ifstream input("../../../data/5by5testfile.txt");
@@ -75,4 +76,8 @@ TEST_CASE("Tests GetImages") {
         REQUIRE(training_data.GetImages()[2].GetImageSize() == image.GetImageSize());
         REQUIRE(training_data.GetImages()[2].GetPixels() == image.GetPixels());
     }
+}
+
+TEST_CASE(">> operator") {
+    
 }

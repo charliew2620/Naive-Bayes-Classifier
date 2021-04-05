@@ -138,8 +138,4 @@ namespace naivebayes {
     const vector<vector<vector<vector<double>>>> &Model::GetPixelProbabilities() const {
         return pixel_probabilities_;
     }
-
-    const TrainingData &Model::GetTrainingData() const {
-        return training_data_;
-    }
 }  // namespace naivebayes

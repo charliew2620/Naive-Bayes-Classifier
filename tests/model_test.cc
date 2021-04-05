@@ -14,7 +14,7 @@ TEST_CASE("Tests class probabilities") {
     SECTION("Checks size") {
         REQUIRE(model.GetClassProbabilities().size() == 10);
     }
-    
+
     SECTION("Checks probability for class 0") {
         REQUIRE(model.GetClassProbabilities()[0] == Approx(0.1538).epsilon(0.01));
     }
@@ -41,15 +41,15 @@ TEST_CASE("Tests pixel probabilities size") {
     SECTION("Checks row size") {
         REQUIRE(model.GetPixelProbabilities().size() == 3);
     }
-    
+
     SECTION("Checks column size") {
         REQUIRE(model.GetPixelProbabilities()[0].size() == 3);
     }
-    
+
     SECTION("Checks label size") {
         REQUIRE(model.GetPixelProbabilities()[0][0].size() == 10);
     }
-    
+
     SECTION("Checks shade size") {
         REQUIRE(model.GetPixelProbabilities()[0][0][0].size() == 3);
     }
@@ -60,7 +60,7 @@ TEST_CASE("Tests pixel probabilities") {
     naivebayes::TrainingData training_data(3, 3);
     input >> training_data;
     naivebayes::Model model(training_data);
-    
+
     SECTION("Tests probabilities for label 0 no shade") {
         REQUIRE(model.GetPixelProbabilities()[0][0][0][0] == Approx(0.25).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[0][1][0][0] == Approx(0.25).epsilon(0.01));
@@ -217,4 +217,24 @@ TEST_CASE("Tests pixel probabilities") {
         }
     }
 }
+
+//TEST_CASE("Tests operator <<") {
+//    naivebayes::TrainingData training_data(28, 5000);
+//    SECTION("Create file for probabilities") {
+//        std::ifstream input("../data/3by3testfile.txt");
+//        input >> training_data;
+//        naivebayes::Model model(training_data);
+//        std::ofstream output("../data/create3by3file.txt");
+//        output << model;
+//        output.close();
+//
+//        std::ifstream("../data/create3by3file.txt")
+//
+//    }
+//}
+//    stream >> training_data;
+//    std::stringstream stringstream;
+//    stringstream << training_data.GetImages()[0].;
+//    REQUIRE(stringstream.str() == "5");
+//}
 

@@ -6,7 +6,7 @@ namespace naivebayes {
     TrainingData::TrainingData(size_t image_size, size_t image_count) {
         image_size_ = image_size;
         image_count_ = image_count;
-        
+
         num_of_images_.resize(10);
     }
 
@@ -17,7 +17,7 @@ namespace naivebayes {
             input.get();
 
             vector<vector<int>> pixels = data.FillImageWithPixels(input, data);
-            
+
             data.num_of_images_[label]++;
             data.images_.emplace_back(label, data.image_size_, pixels);
         }
@@ -49,7 +49,7 @@ namespace naivebayes {
         }
         return pixels;
     }
-    
+
     const size_t &TrainingData::GetImageCount() const {
         return image_count_;
     }
