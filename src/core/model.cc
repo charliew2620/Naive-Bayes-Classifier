@@ -6,7 +6,7 @@
 namespace naivebayes {
     using namespace  std;
 
-    Model::Model(size_t image_size): training_data_(TrainingData(image_size,0)) {
+    Model::Model(size_t image_size): training_data_(TrainingData(image_size, 0)) {
         image_size_ = image_size;
         ResizePixelProbabilityVector();
         
@@ -113,5 +113,17 @@ namespace naivebayes {
             }
         }
         return input;
+    }
+
+    const vector<double> &Model::GetClassProbabilities() const {
+        return class_probabilities_;
+    }
+
+    const vector<vector<vector<vector<double>>>> &Model::GetPixelProbabilities() const {
+        return pixel_probabilities_;
+    }
+
+    const TrainingData &Model::GetTrainingData() const {
+        return training_data_;
     }
 }  // namespace naivebayes

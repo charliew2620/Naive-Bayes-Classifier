@@ -10,11 +10,16 @@ namespace naivebayes {
 
         explicit Model(TrainingData &training_data);
         
-        Model(size_t image_size);
+        explicit Model(size_t image_size);
 
         friend ostream& operator << (ostream& output, Model& model);
         
         friend istream& operator >> (istream &input, Model& model);
+
+        const vector<double> &GetClassProbabilities() const;
+        const vector<vector<vector<vector<double>>>> &GetPixelProbabilities() const;
+        const TrainingData &GetTrainingData() const; 
+        
 
     private:
         const double kLaplaceSmoothing = 1;

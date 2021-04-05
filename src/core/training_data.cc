@@ -50,11 +50,11 @@ namespace naivebayes {
         return pixels;
     }
     
-    size_t TrainingData::GetImageCount() const {
+    const size_t &TrainingData::GetImageCount() const {
         return image_count_;
     }
 
-    size_t TrainingData::GetImageSize() const {
+    const size_t &TrainingData::GetImageSize() const {
         return image_size_;
     }
 
