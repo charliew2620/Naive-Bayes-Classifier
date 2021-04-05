@@ -91,7 +91,7 @@ namespace naivebayes {
 
     void Model::OutputClassProbabilities(ostream &output, Model &model) {
         for (size_t class_num = 0; class_num < model.kNumOfClasses; class_num++) {
-            output << model.class_probabilities_[class_num] << endl;
+            output << std::setprecision(std::numeric_limits<double>::digits) << model.class_probabilities_[class_num] << endl;
         }
     }
 
@@ -100,7 +100,7 @@ namespace naivebayes {
             for (size_t col = 0; col < model.image_size_; col++) {
                 for (size_t shade_num = 0; shade_num < model.kNumOfShades; shade_num++) {
                     for (size_t label = 0; label < model.kNumOfClasses; label++) {
-                        output << model.pixel_probabilities_[row][col][label][shade_num] << endl;
+                        output << std::setprecision(std::numeric_limits<double>::digits) << model.pixel_probabilities_[row][col][label][shade_num] << endl;
                     }
                 }
             }

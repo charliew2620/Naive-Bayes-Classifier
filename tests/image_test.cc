@@ -5,7 +5,7 @@
 #include <fstream>
 
 TEST_CASE("Tests GetImageSize") {
-    std::ifstream input("../../../data/testingfile.txt");
+    std::ifstream input("../../../data/5by5testfile.txt");
     naivebayes::TrainingData training_data(5, 3);
     input >> training_data;
     
@@ -15,7 +15,7 @@ TEST_CASE("Tests GetImageSize") {
 }
 
 TEST_CASE("Tests GetPixels") {
-    std::ifstream input("../../../data/testingfile.txt");
+    std::ifstream input("../../../data/5by5testfile.txt");
     naivebayes::TrainingData training_data(5, 3);
     input >> training_data;
 
@@ -46,7 +46,7 @@ TEST_CASE("Tests GetPixels") {
 }
 
 TEST_CASE("Tests GetLabels") {
-    std::ifstream input("../../../data/testingfile.txt");
+    std::ifstream input("../../../data/5by5testfile.txt");
     naivebayes::TrainingData training_data(5, 3);
     input >> training_data;
     
