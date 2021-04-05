@@ -10,9 +10,9 @@ namespace naivebayes {
     public:
         Image(int label, size_t size, vector<vector<int>> pixels);
 
-        size_t getImageSize() const;
+        size_t GetImageSize() const;
 
-        const vector<vector<int>> &getPixels() const;
+        const vector<vector<int>> &GetPixels() const;
 
         int GetLabel() const;
 

@@ -29,6 +29,8 @@ namespace naivebayes {
         vector<Image> images_;
         
         vector<int> num_of_images_;
+        
+        vector<vector<int>> FillImageWithPixels(istream& input,TrainingData& data);
 
     };
 

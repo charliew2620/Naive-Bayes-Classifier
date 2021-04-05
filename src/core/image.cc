@@ -8,20 +8,17 @@ namespace naivebayes {
         label_ = label;
         size_ = size;
         pixels_ = pixels;
-
     }
 
-    size_t Image::getImageSize() const {
+    size_t Image::GetImageSize() const {
         return size_;
     }
-
     
-
     int Image::GetLabel() const {
         return label_;
     }
 
-    const vector<vector<int>> &Image::getPixels() const {
+    const vector<vector<int>> &Image::GetPixels() const {
         return pixels_;
     }
 }  // namespace naivebayes

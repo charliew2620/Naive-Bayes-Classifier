@@ -26,12 +26,13 @@ namespace naivebayes {
         size_t image_size_;
 
         vector<double> class_probabilities_;
-        vector<vector<vector<vector<double>>>> pixel_probability_;
+        vector<vector<vector<vector<double>>>> pixel_probabilities_;
 
         void CalculateProbabilities();
         void CalculateClassProbabilities();
         void CalculatePixelProbabilities();
-
+        
+        void ResizePixelProbabilityVector();
     };
 
 }  // namespace naivebayes
