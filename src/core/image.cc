@@ -10,4 +10,16 @@ namespace naivebayes {
         pixels_ = std::move(pixels);
 
     }
+
+    size_t Image::getImageSize() const {
+        return size_;
+    }
+
+    vector<vector<bool>> Image::getPixels() const{
+        return pixels_;
+    }
+
+    int Image::GetLabel() const {
+        return label_;
+    }
 }  // namespace naivebayes

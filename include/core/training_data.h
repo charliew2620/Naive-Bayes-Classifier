@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <vector>
 #include <core/image.h>
@@ -10,10 +12,9 @@ namespace naivebayes {
         TrainingData(size_t image_size, size_t image_count);
         friend istream& operator >> (istream& input,TrainingData& data);
 
-        vector<Image> getImages() const;
-        // each class has a probability value
-        // each pixel has a probability value
-        // each P(class=c|all pixel values) has a probability value
+        vector<Image> GetImages() const;
+        size_t GetImageCount() const;
+        size_t GetImageSize() const;
 
     private:
         size_t image_size_;

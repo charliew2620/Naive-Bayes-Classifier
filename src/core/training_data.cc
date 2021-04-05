@@ -39,8 +39,16 @@ namespace naivebayes {
         return input;
     }
 
-    vector<Image> TrainingData::getImages() const {
+    vector<Image> TrainingData::GetImages() const {
         return images_;
+    }
+
+    size_t TrainingData::GetImageCount() const {
+        return image_count_;
+    }
+
+    size_t TrainingData::GetImageSize() const {
+        return image_size_;
     }
 
 }  // namespace naivebayes
