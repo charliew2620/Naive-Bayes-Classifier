@@ -14,11 +14,11 @@ int main(int argc, char** argv) {
         naivebayes::Model model(training_data);
         
         std::ofstream os;
-        os.open("../data/lmao.txt");
+        os.open("../data/wheredidmyweekendgo.txt");
         os << model;
         os.close();
         
-        std::ifstream ifstream("../data/lmao.txt");
+        std::ifstream ifstream("../data/wheredidmyweekendgo.txt");
         naivebayes::Model model1(28);
         
         return 0;

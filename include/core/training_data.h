@@ -13,7 +13,6 @@ namespace naivebayes {
         friend istream& operator >> (istream& input,TrainingData& data);
 
         const vector<Image> &GetImages() const;
-
         size_t GetImageCount() const;
         size_t GetImageSize() const;
         size_t GetNumberOfImagesInClass(int label) const;
@@ -31,7 +30,6 @@ namespace naivebayes {
         vector<int> num_of_images_;
         
         vector<vector<int>> FillImageWithPixels(istream& input,TrainingData& data);
-
     };
 
 }  // namespace naivebayes

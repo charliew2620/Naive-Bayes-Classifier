@@ -7,7 +7,7 @@ namespace naivebayes {
     Image::Image(int label, size_t size, vector<vector<int>> pixels) {
         label_ = label;
         size_ = size;
-        pixels_ = pixels;
+        pixels_ = std::move(pixels);
     }
 
     size_t Image::GetImageSize() const {
