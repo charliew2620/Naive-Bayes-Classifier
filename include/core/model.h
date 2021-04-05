@@ -38,6 +38,12 @@ namespace naivebayes {
         void CalculatePixelProbabilities();
         
         void ResizePixelProbabilityVector();
+        
+        void OutputClassProbabilities(ostream& output, Model &model);
+        void OutputPixelProbabilities(ostream& output, Model &model);
+
+        void ReadInClassProbabilities(istream& input, Model &model);
+        void ReadInPixelProbabilities(istream& input, Model &model);
     };
 
 }  // namespace naivebayes

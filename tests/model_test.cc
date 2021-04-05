@@ -32,3 +32,28 @@ TEST_CASE("Tests class probabilities") {
     }
 }
 
+TEST_CASE("Tests pixel probabilities") {
+    std::ifstream input("../../../data/testingfile.txt");
+    naivebayes::TrainingData training_data(5, 3);
+    input >> training_data;
+    naivebayes::Model model(training_data);
+    
+    
+
+    SECTION("Checks row size") {
+        REQUIRE(model.GetPixelProbabilities().size() == 5);
+    }
+    
+    SECTION("Checks column size") {
+        REQUIRE(model.GetPixelProbabilities()[0].size() == 5);
+    }
+    
+    SECTION("Checks label size") {
+        REQUIRE(model.GetPixelProbabilities()[0][0].size() == 10);
+    }
+    
+    SECTION("Checks shade size") {
+        REQUIRE(model.GetPixelProbabilities()[0][0][0].size() == 3);
+    }
+}
+

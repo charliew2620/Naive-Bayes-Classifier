@@ -84,9 +84,18 @@ namespace naivebayes {
     }
 
     ostream &operator<<(ostream &output, Model &model) {
+        model.OutputClassProbabilities(output, model);
+        model.OutputPixelProbabilities(output, model);
+        return output;
+    }
+
+    void Model::OutputClassProbabilities(ostream &output, Model &model) {
         for (size_t class_num = 0; class_num < model.kNumOfClasses; class_num++) {
             output << model.class_probabilities_[class_num] << endl;
         }
+    }
+
+    void Model::OutputPixelProbabilities(ostream &output, Model &model) {
         for (size_t row = 0; row < model.image_size_; row++) {
             for (size_t col = 0; col < model.image_size_; col++) {
                 for (size_t shade_num = 0; shade_num < model.kNumOfShades; shade_num++) {
@@ -96,13 +105,21 @@ namespace naivebayes {
                 }
             }
         }
-        return output;
     }
 
     istream &operator>>(istream &input, Model &model) {
+        model.ReadInClassProbabilities(input, model);
+        model.ReadInPixelProbabilities(input, model);
+        return input;
+    }
+
+    void Model::ReadInClassProbabilities(istream &input, Model &model) {
         for (size_t class_num = 0; class_num < model.kNumOfClasses; class_num++) {
             input >> model.class_probabilities_[class_num];
         }
+    }
+
+    void Model::ReadInPixelProbabilities(istream &input, Model &model) {
         for (size_t row = 0; row < model.image_size_; row++) {
             for (size_t col = 0; col < model.image_size_; col++) {
                 for (size_t shade_num = 0; shade_num < model.kNumOfShades; shade_num++) {
@@ -112,7 +129,6 @@ namespace naivebayes {
                 }
             }
         }
-        return input;
     }
 
     const vector<double> &Model::GetClassProbabilities() const {
