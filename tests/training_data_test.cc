@@ -17,7 +17,7 @@ TEST_CASE("Tests getters") {
         REQUIRE(training_data.GetImageSize() == 3);
     }
 
-    SECTION("Tests getImages") {
+    SECTION("Tests GetImages") {
         
     }
 

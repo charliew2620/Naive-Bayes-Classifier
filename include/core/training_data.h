@@ -12,7 +12,8 @@ namespace naivebayes {
         TrainingData(size_t image_size, size_t image_count);
         friend istream& operator >> (istream& input,TrainingData& data);
 
-        vector<Image> GetImages() const;
+        const vector<Image> &GetImages() const;
+
         size_t GetImageCount() const;
         size_t GetImageSize() const;
         size_t GetNumberOfImagesInClass(int label) const;

@@ -11,8 +11,9 @@ namespace naivebayes {
         Image(int label, size_t size, vector<vector<int>> pixels);
 
         size_t getImageSize() const;
-        vector<vector<int>> getPixels() const;
-        
+
+        const vector<vector<int>> &getPixels() const;
+
         int GetLabel() const;
 
     private:

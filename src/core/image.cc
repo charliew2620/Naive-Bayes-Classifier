@@ -15,11 +15,13 @@ namespace naivebayes {
         return size_;
     }
 
-    vector<vector<int>> Image::getPixels() const{
-        return pixels_;
-    }
+    
 
     int Image::GetLabel() const {
         return label_;
+    }
+
+    const vector<vector<int>> &Image::getPixels() const {
+        return pixels_;
     }
 }  // namespace naivebayes
