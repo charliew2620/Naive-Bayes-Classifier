@@ -28,24 +28,33 @@ namespace naivebayes {
             double numerator = kLaplaceSmoothing + label_count;
             double denominator = kNumOfClasses * kLaplaceSmoothing + training_data.GetImageCount();
             class_probabilities_.push_back(numerator / denominator);
-            std::cout <<  std::setprecision(std::numeric_limits<double>::digits) << class_probabilities_[class_num]<< std::endl;
+            //std::cout <<  std::setprecision(std::numeric_limits<double>::digits) << class_probabilities_[class_num]<< std::endl;
         }
     }
 
     void Model::CalculatePixelProbabilities(TrainingData &training_data) {
+        
+        
+        
         for (size_t row = 0; row < training_data.GetImageSize(); row++) {
             for (size_t col = 0; col < training_data.GetImageSize(); col++){
                 for (size_t shade_num = 0; shade_num < kNumOfShades; shade_num++) {
-                    // make a new vector of the number of images in this class
+                    vector<size_t> num_of_images_in_class_with_shade;
+                    
+                    bool isShaded = shade_num != 0;
                     
                     for (const Image& image : training_data.GetImages()) {
-                        // increment the number of images for the image's class
-                        // this value is used in the denominator
-                        
-                        if (shade_num == image.getPixels()[row][col]) {
-                            // increment another counter for number of images for the image's class with that shade
-                            // this value is used in the numerator
+                        if (image.getPixels()[row][col] == isShaded) {
+                            num_of_images_in_class_with_shade[image.GetLabel()] += 1;
                         }
+                    }
+                    
+                    for (size_t label = 0; label < kNumOfClasses; label++) {
+                        double numerator = kLaplaceSmoothing + num_of_images_in_class_with_shade[label];
+                        double denominator = kNumOfClasses * kLaplaceSmoothing + training_data.GetNumberOfImagesInClass(label);
+                        
+                        pixel_probability_[row][col][label][shade_num] = numerator / denominator;
+                        std::cout <<  std::setprecision(std::numeric_limits<double>::digits) << pixel_probability_[row][col][label][shade_num]<< std::endl;
                     }
                 }
             }

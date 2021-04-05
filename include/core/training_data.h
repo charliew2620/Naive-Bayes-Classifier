@@ -15,6 +15,7 @@ namespace naivebayes {
         vector<Image> GetImages() const;
         size_t GetImageCount() const;
         size_t GetImageSize() const;
+        size_t GetNumberOfImagesInClass(int label) const;
 
     private:
         size_t image_size_;
@@ -23,6 +24,8 @@ namespace naivebayes {
         char kWhitePixel = ' ';
 
         vector<Image> images_;
+        
+        vector<int> num_of_images_;
 
     };
 

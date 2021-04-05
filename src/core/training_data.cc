@@ -6,6 +6,9 @@ namespace naivebayes {
     TrainingData::TrainingData(size_t image_size, size_t image_count) {
         image_size_ = image_size;
         image_count_ = image_count;
+        
+        // todo fix
+        num_of_images_.resize(10);
     }
 
     istream &operator>>(istream &input, TrainingData &data) {
@@ -34,6 +37,7 @@ namespace naivebayes {
                     }
                 }
             }
+            data.num_of_images_[label] += 1;
             data.images_.emplace_back(label, data.image_size_, pixels);
         }
         return input;
@@ -49,6 +53,10 @@ namespace naivebayes {
 
     size_t TrainingData::GetImageSize() const {
         return image_size_;
+    }
+
+    size_t TrainingData::GetNumberOfImagesInClass(int label) const {
+        return num_of_images_[label];
     }
 
 }  // namespace naivebayes
