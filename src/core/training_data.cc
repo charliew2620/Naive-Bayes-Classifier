@@ -7,7 +7,6 @@ namespace naivebayes {
         image_size_ = image_size;
         image_count_ = image_count;
         
-        // todo fix
         num_of_images_.resize(10);
     }
 
@@ -18,7 +17,7 @@ namespace naivebayes {
             input >> label;
             input.get();
 
-            vector<vector<bool>> pixels(data.image_size_);
+            vector<vector<int>> pixels(data.image_size_);
 
             for (size_t row = 0; row < data.image_size_; row++) {
                 pixels[row].resize(data.image_size_);
@@ -30,10 +29,12 @@ namespace naivebayes {
                 for (size_t col = 0; col < data.image_size_; col++) {
                     pixel_character = line[col];
                     if (pixel_character == data.kWhitePixel) {
-                        pixels[row][col] = false;
+                        pixels[row][col] = 0;
 
-                    } else {
-                        pixels[row][col] = true;
+                    } else if (pixel_character == data.kGrayPixel) {
+                        pixels[row][col] = 1;
+                    } else if (pixel_character == data.kBlackPixel) {
+                        pixels[row][col] = 2;
                     }
                 }
             }

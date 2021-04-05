@@ -22,6 +22,8 @@ namespace naivebayes {
         size_t image_count_;
 
         char kWhitePixel = ' ';
+        char kGrayPixel = '+';
+        char kBlackPixel = '#';
 
         vector<Image> images_;
         
