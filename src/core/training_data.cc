@@ -38,7 +38,7 @@ namespace naivebayes {
                     }
                 }
             }
-            data.num_of_images_[label] += 1;
+            data.num_of_images_[label]++;
             data.images_.emplace_back(label, data.image_size_, pixels);
         }
         return input;

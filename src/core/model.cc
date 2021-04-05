@@ -6,6 +6,24 @@
 namespace naivebayes {
     using namespace  std;
 
+    Model::Model(size_t image_size): training_data_(TrainingData(image_size,0)) {
+        image_size_ = image_size;
+
+        pixel_probability_.resize(image_size_);
+        for (size_t row = 0; row < image_size_; row++) {
+            pixel_probability_[row].resize(image_size_);
+
+            for(size_t col = 0; col < image_size_; col++) {
+                pixel_probability_[row][col].resize(kNumOfClasses);
+
+                for (size_t label = 0; label < kNumOfClasses; label++) {
+                    pixel_probability_[row][col][label].resize(kNumOfShades);
+                }
+            }
+        }
+        CalculateProbabilities();
+    }
+
     Model::Model(TrainingData &training_data) : training_data_(training_data) {
         image_size_ = training_data.GetImageSize();
         training_data_ = training_data;
@@ -22,7 +40,6 @@ namespace naivebayes {
                 }
             }
         }
-        
         CalculateProbabilities();
     }
 
@@ -75,7 +92,6 @@ namespace naivebayes {
     }
 
     ostream &operator<<(ostream &output, Model &model) {
-        std::cout << "lmao" << std::endl;
         for (size_t class_num = 0; class_num < model.kNumOfClasses; class_num++) {
             output << model.class_probabilities_[class_num] << endl;
         }
@@ -92,5 +108,22 @@ namespace naivebayes {
         
         return output;
     }
-    
+
+    istream &operator>>(istream &input, Model &model) {
+        for (size_t class_num = 0; class_num < model.kNumOfClasses; class_num++) {
+            input >> model.class_probabilities_[class_num];
+        }
+        for (size_t row = 0; row < model.training_data_.GetImageSize(); row++) {
+            for (size_t col = 0; col < model.training_data_.GetImageSize(); col++) {
+                for (size_t shade_num = 0; shade_num < model.kNumOfShades; shade_num++) {
+                    for (size_t label = 0; label < model.kNumOfClasses; label++) {
+                        input >> model.pixel_probability_[row][col][label][shade_num];
+                    }
+                }
+
+            }
+        }
+        return input;
+    }
+
 }  // namespace naivebayes

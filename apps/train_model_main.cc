@@ -11,16 +11,15 @@ int main(int argc, char** argv) {
         naivebayes::TrainingData training_data(28, 5000);
         stream >> training_data;
         
-        std::cout << "lmao1" << std::endl;
-        
         naivebayes::Model model(training_data);
-
-        std::cout << "lmao0" << std::endl;
         
         std::ofstream os;
         os.open("../data/lmao.txt");
         os << model;
         os.close();
+        
+        std::ifstream ifstream("../data/lmao.txt");
+        naivebayes::Model model1(28);
         
         return 0;
     }
