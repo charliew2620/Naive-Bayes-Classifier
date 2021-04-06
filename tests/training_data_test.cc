@@ -76,7 +76,3 @@ TEST_CASE("Tests GetImages") {
         REQUIRE(training_data.GetImages()[2].GetPixels() == image.GetPixels());
     }
 }
-
-TEST_CASE(">> operator") {
-    
-}

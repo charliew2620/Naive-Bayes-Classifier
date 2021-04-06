@@ -210,24 +210,3 @@ TEST_CASE("Tests pixel probabilities") {
         }
     }
 }
-
-//TEST_CASE("Tests operator <<") {
-//    naivebayes::TrainingData training_data(28, 5000);
-//    SECTION("Create file for probabilities") {
-//        std::ifstream input("../data/3by3testfile.txt");
-//        input >> training_data;
-//        naivebayes::Model model(training_data);
-//        std::ofstream output("../data/create3by3file.txt");
-//        output << model;
-//        output.close();
-//
-//        std::ifstream("../data/create3by3file.txt")
-//
-//    }
-//}
-//    stream >> training_data;
-//    std::stringstream stringstream;
-//    stringstream << training_data.GetImages()[0].;
-//    REQUIRE(stringstream.str() == "5");
-//}
-
