@@ -4,7 +4,6 @@
 #include <fstream>
 #include <core/model.h>
 
-
 int main(int argc, char** argv) {
     if (argc >= 2) {
         std::ifstream stream(argv[1]);

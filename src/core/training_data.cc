@@ -6,7 +6,6 @@ namespace naivebayes {
     TrainingData::TrainingData(size_t image_size, size_t image_count) {
         image_size_ = image_size;
         image_count_ = image_count;
-
         num_of_images_.resize(10);
     }
 
@@ -44,6 +43,8 @@ namespace naivebayes {
                     pixels[row][col] = 1;
                 } else if (pixel_character == data.kBlackPixel) {
                     pixels[row][col] = 2;
+                } else {
+                    throw invalid_argument("Invalid character");
                 }
             }
         }

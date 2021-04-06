@@ -3,7 +3,6 @@
 #include <core/training_data.h>
 #include <iostream>
 #include <fstream>
-#include <sstream>
 
 TEST_CASE("Tests basic getters") {
     std::ifstream input("../../../data/5by5testfile.txt");

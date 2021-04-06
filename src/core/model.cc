@@ -96,6 +96,7 @@ namespace naivebayes {
     }
 
     void Model::OutputPixelProbabilities(ostream &output, Model &model) {
+        output << model.training_data_.GetImageSize() << endl;
         for (size_t row = 0; row < model.image_size_; row++) {
             for (size_t col = 0; col < model.image_size_; col++) {
                 for (size_t shade_num = 0; shade_num < model.kNumOfShades; shade_num++) {

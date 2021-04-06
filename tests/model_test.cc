@@ -34,7 +34,7 @@ TEST_CASE("Tests class probabilities") {
             }
         }
     }
-    
+
 }
 
 TEST_CASE("Tests pixel probabilities size") {

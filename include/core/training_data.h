@@ -46,7 +46,7 @@ namespace naivebayes {
          * Helper method to fill image with pixels of different shades.
          * @param input istream parameter. 
          * @param data TrainingData object passed as parameter.
-         * @return 2d vector of pixels.
+         * @return 2d vector of pixels.i
          */
         vector<vector<int>> FillImageWithPixels(istream& input,TrainingData& data);
     };
