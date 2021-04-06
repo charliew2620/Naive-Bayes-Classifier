@@ -17,7 +17,9 @@ namespace naivebayes {
 
             vector<vector<int>> pixels = data.FillImageWithPixels(input, data);
 
+            // index at this vector incremented for getter
             data.num_of_images_[label]++;
+            
             data.images_.emplace_back(label, data.image_size_, pixels);
         }
         return input;
@@ -41,8 +43,10 @@ namespace naivebayes {
 
                 } else if (pixel_character == data.kGrayPixel) {
                     pixels[row][col] = 1;
+
                 } else if (pixel_character == data.kBlackPixel) {
                     pixels[row][col] = 2;
+
                 } else {
                     throw invalid_argument("Invalid character");
                 }

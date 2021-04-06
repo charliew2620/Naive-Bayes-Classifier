@@ -4,6 +4,7 @@
 #include <core/model.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 TEST_CASE("Tests class probabilities") {
     std::ifstream input("../../../data/5by5testfile.txt");
