@@ -18,7 +18,9 @@ namespace naivebayes {
 
         // getters
         const size_t &GetImageSize() const;
+
         const vector<vector<int>> &GetPixels() const;
+
         const int &GetLabel() const;
 
     private:

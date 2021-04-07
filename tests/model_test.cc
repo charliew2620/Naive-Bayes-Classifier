@@ -4,7 +4,6 @@
 #include <core/model.h>
 #include <iostream>
 #include <fstream>
-#include <sstream>
 
 TEST_CASE("Tests class probabilities") {
     std::ifstream input("../../../data/5by5testfile.txt");
@@ -27,7 +26,7 @@ TEST_CASE("Tests class probabilities") {
     SECTION("Checks probability for class 7") {
         REQUIRE(model.GetClassProbabilities()[7] == Approx(0.1538).epsilon(0.01));
     }
-    
+
     SECTION("Checks probability for classes not in file") {
         for (int class_num = 0; class_num < 10; class_num++) {
             if (class_num != 0 && class_num != 1 && class_num != 7) {
@@ -68,21 +67,20 @@ TEST_CASE("Tests pixel probabilities") {
     naivebayes::Model model(training_data);
 
     SECTION("Tests probabilities for label 0 no shade") {
-        REQUIRE(model.GetPixelProbabilities()[0][0][0][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][1][0][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][2][0][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][0][0][0] == Approx(0.25).epsilon(0.01));
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (row != 1 && col != 1) {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][0][0] == Approx(0.25).epsilon(0.01));
+                }
+            }
+        }
         REQUIRE(model.GetPixelProbabilities()[1][1][0][0] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][2][0][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][0][0][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][1][0][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][2][0][0] == Approx(0.25).epsilon(0.01));
     }
 
     SECTION("Tests probabilities for label 0 partial shade") {
-        REQUIRE(model.GetPixelProbabilities()[0][0][0][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][1][0][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][2][0][1] == Approx(0.25).epsilon(0.01));
+        REQUIRE(model.GetPixelProbabilities()[0][0][0][1] == Approx(0.5).epsilon(0.01));
+        REQUIRE(model.GetPixelProbabilities()[0][1][0][1] == Approx(0.5).epsilon(0.01));
+        REQUIRE(model.GetPixelProbabilities()[0][2][0][1] == Approx(0.5).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[1][0][0][1] == Approx(0.5).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[1][1][0][1] == Approx(0.25).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[1][2][0][1] == Approx(0.25).epsilon(0.01));
@@ -92,51 +90,51 @@ TEST_CASE("Tests pixel probabilities") {
     }
 
     SECTION("Tests probabilities for label 0 total shade") {
-        REQUIRE(model.GetPixelProbabilities()[0][0][0][2] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][1][0][2] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][2][0][2] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][0][0][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][1][0][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][2][0][2] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][0][0][2] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][1][0][2] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][2][0][2] == Approx(0.25).epsilon(0.01));
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (row == 1 && col == 2 || row == 2 && col == 0 || row == 2 && col == 1) {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][0][2] == Approx(0.5).epsilon(0.01));
+                } else {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][0][2] == Approx(0.25).epsilon(0.01));
+                }
+            }
+        }
     }
 
     SECTION("Tests probabilities for label 1 no shade") {
-        REQUIRE(model.GetPixelProbabilities()[0][0][1][0] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][1][1][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][2][1][0] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][0][1][0] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][1][1][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][2][1][0] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][0][1][0] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][1][1][0] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][2][1][0] == Approx(0.5).epsilon(0.01));
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (col == 0 || col == 2) {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][1][0] == Approx(0.5).epsilon(0.01));
+                } else if (col == 1) {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][1][0] == Approx(0.25).epsilon(0.01));
+                }
+            }
+        }
     }
 
     SECTION("Tests probabilities for label 1 partial shade") {
-        REQUIRE(model.GetPixelProbabilities()[0][0][1][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][1][1][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][2][1][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][0][1][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][1][1][1] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][2][1][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][0][1][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][1][1][1] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][2][1][1] == Approx(0.25).epsilon(0.01));
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (row == 1 && col == 1 || row == 2 && col == 1) {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][1][1] == Approx(0.5).epsilon(0.01));
+                } else {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][1][1] == Approx(0.25).epsilon(0.01));
+                }
+            }
+        }
     }
 
     SECTION("Tests probabilities for label 1 total shade") {
-        REQUIRE(model.GetPixelProbabilities()[0][0][1][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][1][1][2] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][2][1][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][0][1][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][1][1][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[1][2][1][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][0][1][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][1][1][2] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[2][2][1][2] == Approx(0.25).epsilon(0.01));
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (row == 0 && col == 1) {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][1][2] == Approx(0.5).epsilon(0.01));
+                } else {
+                    REQUIRE(model.GetPixelProbabilities()[row][col][1][2] == Approx(0.25).epsilon(0.01));
+                }
+            }
+        }
     }
 
     SECTION("Tests probabilities for label 7 no shade") {
@@ -153,7 +151,7 @@ TEST_CASE("Tests pixel probabilities") {
 
     SECTION("Tests probabilities for label 7 partial shade") {
         REQUIRE(model.GetPixelProbabilities()[0][0][7][1] == Approx(0.5).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][1][7][1] == Approx(0.25).epsilon(0.01));
+        REQUIRE(model.GetPixelProbabilities()[0][1][7][1] == Approx(0.5).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[0][2][7][1] == Approx(0.25).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[1][0][7][1] == Approx(0.25).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[1][1][7][1] == Approx(0.25).epsilon(0.01));
@@ -165,7 +163,7 @@ TEST_CASE("Tests pixel probabilities") {
 
     SECTION("Tests probabilities for label 7 total shade") {
         REQUIRE(model.GetPixelProbabilities()[0][0][7][2] == Approx(0.25).epsilon(0.01));
-        REQUIRE(model.GetPixelProbabilities()[0][1][7][2] == Approx(0.5).epsilon(0.01));
+        REQUIRE(model.GetPixelProbabilities()[0][1][7][2] == Approx(0.25).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[0][2][7][2] == Approx(0.5).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[1][0][7][2] == Approx(0.25).epsilon(0.01));
         REQUIRE(model.GetPixelProbabilities()[1][1][7][2] == Approx(0.5).epsilon(0.01));

@@ -13,7 +13,7 @@ namespace naivebayes {
     const size_t &Image::GetImageSize() const {
         return size_;
     }
-    
+
     const int &Image::GetLabel() const {
         return label_;
     }
