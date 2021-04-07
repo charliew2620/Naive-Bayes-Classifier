@@ -35,7 +35,7 @@ namespace naivebayes {
             string line;
             getline(input, line);
 
-            // Fills 2d vector with boolean values for shades
+            // Fills 2d vector with number values for shades
             for (size_t col = 0; col < data.image_size_; col++) {
                 pixel_character = line[col];
                 if (pixel_character == data.kWhitePixel) {
