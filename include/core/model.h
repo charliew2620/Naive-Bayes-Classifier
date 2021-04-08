@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <vector>
 #include <core/training_data.h>
@@ -39,6 +41,8 @@ namespace naivebayes {
         const vector<double> &GetClassProbabilities() const;
 
         const vector<vector<vector<vector<double>>>> &GetPixelProbabilities() const;
+
+        const TrainingData &GetTrainingData() const;
 
     private:
         const double kLaplaceSmoothing = 1;

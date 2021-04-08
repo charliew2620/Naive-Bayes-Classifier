@@ -3,6 +3,7 @@
 #include <core/training_data.h>
 #include <fstream>
 #include <core/model.h>
+#include <core/classifier.h>
 
 int main(int argc, char** argv) {
     if (argc >= 2) {
@@ -11,6 +12,7 @@ int main(int argc, char** argv) {
         stream >> training_data;
         
         naivebayes::Model model(training_data);
+        naivebayes::Classifier classifier(model);
         
         std::ofstream os;
         os.open("../data/wheredidmyweekendgo.txt");
@@ -19,7 +21,6 @@ int main(int argc, char** argv) {
         
         std::ifstream ifstream("../data/wheredidmyweekendgo.txt");
         naivebayes::Model model1(28);
-        
         return 0;
     }
   return 1;
