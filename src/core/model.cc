@@ -15,7 +15,6 @@ namespace naivebayes {
 
     Model::Model(TrainingData &training_data) : training_data_(training_data) {
         image_size_ = training_data.GetImageSize();
-        training_data_ = training_data;
         ResizePixelProbabilityVector();
 
         CalculateProbabilities();
