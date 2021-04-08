@@ -9,7 +9,15 @@ namespace naivebayes {
     }
 
     int Classifier::ClassifyImageWithLabel(Image &image) {
-        return 0;
+        double max = -1;
+        int best_label;
+        for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
+            if (image_likelihood_scores_[label] > max) {
+                max = image_likelihood_scores_[label];
+                best_label = label;
+            }
+        }
+        return best_label;
     }
 
     void Classifier::CalculateLikelihoodScores(Image &image) {
@@ -17,18 +25,11 @@ namespace naivebayes {
             image_likelihood_scores_.push_back(log(class_probability));
         }
         
-        for (size_t row = 0; row < image.GetImageSize(); row++) {
-            for (size_t col = 0; col < image.GetImageSize(); col++) {
-                for (size_t shade = 0; shade < model_.GetPixelProbabilities().size(); shade++) {
-                    if (image.GetPixels()[row][col] == 0) {
-                        //unshaded
-                        continue;
-                    } else if (image.GetPixels()[row][col] == 1) {
-                        //partially shaded
-                        continue;
-                    } else {
-                        // shaded
-                        continue;
+        for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
+            for (size_t row = 0; row < image.GetImageSize(); row++) {
+                for (size_t col = 0; col < image.GetImageSize(); col++) {
+                    for (size_t shade = 0; shade < 3; shade++) {
+                        image_likelihood_scores_[label] += log(model_.GetPixelProbabilities()[row][col][label][shade]);
                     }
                 }
             }
