@@ -28,9 +28,7 @@ namespace naivebayes {
         for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
             for (size_t row = 0; row < image.GetImageSize(); row++) {
                 for (size_t col = 0; col < image.GetImageSize(); col++) {
-                    for (size_t shade = 0; shade < 3; shade++) {
-                        image_likelihood_scores_[label] += log(model_.GetPixelProbabilities()[row][col][label][shade]);
-                    }
+                    image_likelihood_scores_[label] += log(model_.GetPixelProbabilities()[row][col][label][image.GetPixels()[row][col]]);
                 }
             }
         }
