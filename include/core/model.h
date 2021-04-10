@@ -5,7 +5,7 @@
 #include <core/training_data.h>
 
 namespace naivebayes {
-    using namespace std;
+    using std::vector;
 
     class Model {
     public:
@@ -27,7 +27,7 @@ namespace naivebayes {
          * @param model object passed in.
          * @return the output.
          */
-        friend ostream &operator<<(ostream &output, Model &model);
+        friend std::ostream &operator<<(std::ostream &output, Model &model);
 
         /**
          * Reads in a file with operator.
@@ -35,7 +35,7 @@ namespace naivebayes {
          * @param model model object passed in.
          * @return the input.
          */
-        friend istream &operator>>(istream &input, Model &model);
+        friend std::istream &operator>>(std::istream &input, Model &model);
 
         // getters
         const vector<double> &GetClassProbabilities() const;
@@ -59,7 +59,7 @@ namespace naivebayes {
         /**
          * Calls methods for class and pixel probabilities.
          */
-        void CalculateProbabilities();
+        void TrainModel();
 
         /**
          * Calculates class probabilities.
@@ -81,28 +81,28 @@ namespace naivebayes {
          * @param output ostream passed in as parameter.
          * @param model Model object passed in as parameter.
          */
-        void OutputClassProbabilities(ostream &output, Model &model);
+        void OutputClassProbabilities(std::ostream &output, Model &model);
 
         /**
          * Helper method for outputting pixel probabilities.
          * @param output ostream passed in as parameter.
          * @param model Model object passed in as parameter.
          */
-        void OutputPixelProbabilities(ostream &output, Model &model);
+        void OutputPixelProbabilities(std::ostream &output, Model &model);
 
         /**
          * Helper method for inputting class probabilities.
          * @param input istream passed in as parameter.
          * @param model Model object passed in as parameter.
          */
-        void ReadInClassProbabilities(istream &input, Model &model);
+        void ReadInClassProbabilities(std::istream &input, Model &model);
 
         /**
          * Helper method for inputting pixel probabilities.
          * @param input istream passed in as parameter.
          * @param model Model object passed in as parameter.
          */
-        void ReadInPixelProbabilities(istream &input, Model &model);
+        void ReadInPixelProbabilities(std::istream &input, Model &model);
     };
 
 }  // namespace naivebayes

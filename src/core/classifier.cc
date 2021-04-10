@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace naivebayes {
-    using namespace std;
+    using std::vector;
 
     Classifier::Classifier(Model model) : model_(std::move(model)) {
         for (Image image : model_.GetTrainingData().GetImages()) {
@@ -50,10 +50,9 @@ namespace naivebayes {
     }
 
     double Classifier::CalculateAccuracy() const {
-        std::cout << correct_classification_ << endl;
-        std::cout << total_images_ << endl;
+        std::cout << correct_classification_ << std::endl;
+        std::cout << total_images_ << std::endl;
         std:: cout << (double) correct_classification_ / total_images_;
         return (double) correct_classification_ / total_images_;
     }
-
 }  // namespace naivebayes

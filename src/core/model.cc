@@ -4,20 +4,20 @@
 
 
 namespace naivebayes {
-    using namespace std;
+    using std::vector;
 
     Model::Model(size_t image_size) : training_data_(TrainingData(image_size, 0)) {
         image_size_ = image_size;
         ResizePixelProbabilityVector();
 
-        CalculateProbabilities();
+        TrainModel();
     }
 
     Model::Model(TrainingData &training_data) : training_data_(training_data) {
         image_size_ = training_data.GetImageSize();
         ResizePixelProbabilityVector();
 
-        CalculateProbabilities();
+        TrainModel();
     }
 
     void Model::ResizePixelProbabilityVector() {
@@ -35,7 +35,7 @@ namespace naivebayes {
         }
     }
 
-    void Model::CalculateProbabilities() {
+    void Model::TrainModel() {
         CalculateClassProbabilities();
         CalculatePixelProbabilities();
     }
@@ -83,46 +83,46 @@ namespace naivebayes {
         }
     }
 
-    ostream &operator<<(ostream &output, Model &model) {
+    std::ostream &operator<<(std::ostream &output, Model &model) {
         model.OutputClassProbabilities(output, model);
         model.OutputPixelProbabilities(output, model);
         return output;
     }
 
-    void Model::OutputClassProbabilities(ostream &output, Model &model) {
+    void Model::OutputClassProbabilities(std::ostream &output, Model &model) {
         for (size_t class_num = 0; class_num < model.kNumOfClasses; class_num++) {
             output << std::setprecision(std::numeric_limits<double>::digits) << model.class_probabilities_[class_num]
-                   << endl;
+                   << std::endl;
         }
     }
 
-    void Model::OutputPixelProbabilities(ostream &output, Model &model) {
-        output << model.training_data_.GetImageSize() << endl;
+    void Model::OutputPixelProbabilities(std::ostream &output, Model &model) {
+        output << model.training_data_.GetImageSize() << std::endl;
         for (size_t row = 0; row < model.image_size_; row++) {
             for (size_t col = 0; col < model.image_size_; col++) {
                 for (size_t shade_num = 0; shade_num < model.kNumOfShades; shade_num++) {
                     for (size_t label = 0; label < model.kNumOfClasses; label++) {
                         output << std::setprecision(std::numeric_limits<double>::digits)
-                               << model.pixel_probabilities_[row][col][label][shade_num] << endl;
+                               << model.pixel_probabilities_[row][col][label][shade_num] << std::endl;
                     }
                 }
             }
         }
     }
 
-    istream &operator>>(istream &input, Model &model) {
+    std::istream &operator>>(std::istream &input, Model &model) {
         model.ReadInClassProbabilities(input, model);
         model.ReadInPixelProbabilities(input, model);
         return input;
     }
 
-    void Model::ReadInClassProbabilities(istream &input, Model &model) {
+    void Model::ReadInClassProbabilities(std::istream &input, Model &model) {
         for (size_t class_num = 0; class_num < model.kNumOfClasses; class_num++) {
             input >> model.class_probabilities_[class_num];
         }
     }
 
-    void Model::ReadInPixelProbabilities(istream &input, Model &model) {
+    void Model::ReadInPixelProbabilities(std::istream &input, Model &model) {
         for (size_t row = 0; row < model.image_size_; row++) {
             for (size_t col = 0; col < model.image_size_; col++) {
                 for (size_t shade_num = 0; shade_num < model.kNumOfShades; shade_num++) {

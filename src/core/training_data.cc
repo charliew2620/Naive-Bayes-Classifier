@@ -1,7 +1,8 @@
 #include <core/training_data.h>
 
 namespace naivebayes {
-    using namespace std;
+    using std::vector;
+    using std::string;
 
     TrainingData::TrainingData(size_t image_size, size_t image_count) {
         image_size_ = image_size;
@@ -9,7 +10,7 @@ namespace naivebayes {
         num_of_images_.resize(10);
     }
 
-    istream &operator>>(istream &input, TrainingData &data) {
+    std::istream &operator>>(std::istream &input, TrainingData &data) {
         for (size_t i = 0; i < data.image_count_; i++) {
             int label;
             input >> label;
@@ -25,7 +26,7 @@ namespace naivebayes {
         return input;
     }
 
-    vector<vector<int>> TrainingData::FillImageWithPixels(istream &input, TrainingData &data) {
+    vector<vector<int>> TrainingData::FillImageWithPixels(std::istream &input, TrainingData &data) {
         vector<vector<int>> pixels(data.image_size_);
         char pixel_character;
 
@@ -48,7 +49,7 @@ namespace naivebayes {
                     pixels[row][col] = 2;
 
                 } else {
-                    throw invalid_argument("Invalid character");
+                    throw std::invalid_argument("Invalid character");
                 }
             }
         }

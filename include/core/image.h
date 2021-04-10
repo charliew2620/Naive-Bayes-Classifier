@@ -4,7 +4,7 @@
 #include <vector>
 
 namespace naivebayes {
-    using namespace std;
+    using std::vector;
 
     class Image {
     public:
@@ -14,7 +14,7 @@ namespace naivebayes {
          * @param size of the image passed in.
          * @param pixels 2d vector of the pixels making up the image.
          */
-        Image(int label, size_t size, vector<vector<int>> pixels);
+        Image(int label, size_t size, const vector<vector<int>> pixels);
 
         // getters
         const size_t &GetImageSize() const;

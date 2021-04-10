@@ -2,12 +2,12 @@
 #include <core/image.h>
 
 namespace naivebayes {
-    using namespace std;
+    using std::vector;
 
-    Image::Image(int label, size_t size, vector<vector<int>> pixels) {
+    Image::Image(int label, size_t size, const vector<vector<int>> pixels) {
         label_ = label;
         size_ = size;
-        pixels_ = std::move(pixels);
+        pixels_ = pixels;
     }
 
     const size_t &Image::GetImageSize() const {

@@ -5,7 +5,8 @@
 #include <core/image.h>
 
 namespace naivebayes {
-    using namespace std;
+    using std::vector; 
+    using std::string;
 
     class TrainingData {
     public:
@@ -22,7 +23,7 @@ namespace naivebayes {
          * @param data TrainingData object passed as parameter.
          * @return input.
          */
-        friend istream& operator >> (istream& input,TrainingData& data);
+        friend std::istream& operator >> (std::istream& input,TrainingData& data);
 
         // getters
         const vector<Image> &GetImages() const;
@@ -48,7 +49,7 @@ namespace naivebayes {
          * @param data TrainingData object passed as parameter.
          * @return 2d vector of pixels.i
          */
-        vector<vector<int>> FillImageWithPixels(istream& input,TrainingData& data);
+        vector<vector<int>> FillImageWithPixels(std::istream& input,TrainingData& data);
     };
 
 }  // namespace naivebayes

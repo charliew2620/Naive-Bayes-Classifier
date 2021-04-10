@@ -5,7 +5,7 @@
 #include "model.h"
 
 namespace naivebayes {
-    using namespace std;
+    using std::vector;
 
     class Classifier {
     public:
