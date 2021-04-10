@@ -49,7 +49,7 @@ get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
 
 include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
-list(APPEND CORE_SOURCE_FILES src/core/training_data.cc
+list(APPEND CORE_SOURCE_FILES src/core/load_data.cc
         src/core/image.cc
         src/core/model.cc
         src/core/classifier.cc)

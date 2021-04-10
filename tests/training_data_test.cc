@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include <core/training_data.h>
+#include <core/load_data.h>
 #include <iostream>
 #include <fstream>
 

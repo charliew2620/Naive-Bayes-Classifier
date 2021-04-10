@@ -1,4 +1,4 @@
-#include <core/training_data.h>
+#include <core/load_data.h>
 
 namespace naivebayes {
     using std::vector;
@@ -7,13 +7,14 @@ namespace naivebayes {
     TrainingData::TrainingData(size_t image_size, size_t image_count) {
         image_size_ = image_size;
         image_count_ = image_count;
-        num_of_images_.resize(10);
+        num_of_images_.resize(kMagicTen);
     }
 
     std::istream &operator>>(std::istream &input, TrainingData &data) {
         for (size_t i = 0; i < data.image_count_; i++) {
             int label;
             input >> label;
+            // gets the label of the image from the file
             input.get();
 
             vector<vector<int>> pixels = data.FillImageWithPixels(input, data);
@@ -40,13 +41,13 @@ namespace naivebayes {
             for (size_t col = 0; col < data.image_size_; col++) {
                 pixel_character = line[col];
                 if (pixel_character == data.kWhitePixel) {
-                    pixels[row][col] = 0;
+                    pixels[row][col] = kWhitePixelValue;
 
                 } else if (pixel_character == data.kGrayPixel) {
-                    pixels[row][col] = 1;
+                    pixels[row][col] = kGrayPixelValue;
 
                 } else if (pixel_character == data.kBlackPixel) {
-                    pixels[row][col] = 2;
+                    pixels[row][col] = kBlackPixelValue;
 
                 } else {
                     throw std::invalid_argument("Invalid character");

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <core/training_data.h>
+#include <core/load_data.h>
 #include <fstream>
 #include <core/model.h>
 #include <core/classifier.h>

@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include <core/training_data.h>
+#include <core/load_data.h>
 
 namespace naivebayes {
     using std::vector;

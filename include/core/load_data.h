@@ -38,10 +38,16 @@ namespace naivebayes {
         char kWhitePixel = ' ';
         char kGrayPixel = '+';
         char kBlackPixel = '#';
+        
+        int kWhitePixelValue = 0;
+        int kGrayPixelValue = 1;
+        int kBlackPixelValue = 2;
 
         vector<Image> images_;
         
         vector<int> num_of_images_;
+        
+        int kMagicTen = 10;
         
         /**
          * Helper method to fill image with pixels of different shades.
