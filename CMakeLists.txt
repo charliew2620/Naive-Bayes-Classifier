@@ -58,7 +58,7 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
                             src/visualizer/naive_bayes_app.cc
                             src/visualizer/sketchpad.cc)
 
-list(APPEND TEST_FILES tests/training_data_test.cc
+list(APPEND TEST_FILES tests/load_data_test.cc
         tests/image_test.cc
         tests/model_test.cc)
 

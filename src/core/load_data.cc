@@ -7,7 +7,7 @@ namespace naivebayes {
     TrainingData::TrainingData(size_t image_size, size_t image_count) {
         image_size_ = image_size;
         image_count_ = image_count;
-        num_of_images_.resize(kMagicTen);
+        num_of_images_in_class_.resize(kMagicTen);
     }
 
     std::istream &operator>>(std::istream &input, TrainingData &data) {
@@ -20,7 +20,7 @@ namespace naivebayes {
             vector<vector<int>> pixels = data.FillImageWithPixels(input, data);
 
             // index at this vector incremented for getter
-            data.num_of_images_[label]++;
+            data.num_of_images_in_class_[label]++;
             
             data.images_.emplace_back(label, data.image_size_, pixels);
         }
@@ -66,7 +66,7 @@ namespace naivebayes {
     }
 
     size_t TrainingData::GetNumberOfImagesInClass(int label) const {
-        return num_of_images_[label];
+        return num_of_images_in_class_[label];
     }
 
     const vector<Image> &TrainingData::GetImages() const {

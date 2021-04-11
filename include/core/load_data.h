@@ -45,7 +45,7 @@ namespace naivebayes {
 
         vector<Image> images_;
         
-        vector<int> num_of_images_;
+        vector<int> num_of_images_in_class_;
         
         int kMagicTen = 10;
         

@@ -21,18 +21,10 @@ namespace naivebayes {
     }
 
     void Model::ResizePixelProbabilityVector() {
-        pixel_probabilities_.resize(image_size_);
-        for (size_t row = 0; row < image_size_; row++) {
-            pixel_probabilities_[row].resize(image_size_);
-
-            for (size_t col = 0; col < image_size_; col++) {
-                pixel_probabilities_[row][col].resize(kNumOfClasses);
-
-                for (size_t label = 0; label < kNumOfClasses; label++) {
-                    pixel_probabilities_[row][col][label].resize(kNumOfShades);
-                }
-            }
-        }
+        pixel_probabilities_.resize(image_size_, vector<vector<vector<double>>>(image_size_,
+                                                                                vector<vector<double>>(kNumOfClasses,
+                                                                                                       vector<double>(
+                                                                                                               kNumOfShades))));
     }
 
     void Model::TrainModel() {
