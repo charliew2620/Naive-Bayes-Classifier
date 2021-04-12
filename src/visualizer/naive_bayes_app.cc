@@ -48,7 +48,7 @@ void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
       
       current_prediction_ = model_.FindLikeliestLabel(sketchpad_.GetPixels());
       break;
-
+      
     case ci::app::KeyEvent::KEY_DELETE:
       sketchpad_.Clear();
       break;

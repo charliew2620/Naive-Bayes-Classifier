@@ -3,7 +3,6 @@
 #include <core/load_data.h>
 #include <fstream>
 #include <core/model.h>
-#include <core/classifier.h>
 
 int main(int argc, char** argv) {
     if (argc >= 2) {
@@ -21,8 +20,6 @@ int main(int argc, char** argv) {
         std::ifstream stream1(argv[2]);
         naivebayes::TrainingData testing_data(28, 1000);
         stream1 >> testing_data;
-
-//        naivebayes::Model model1(testing_data);
         
         std::cout << model.ComputeAccuracy(testing_data.GetImages());
         os.close();

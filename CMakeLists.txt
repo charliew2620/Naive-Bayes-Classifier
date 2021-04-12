@@ -51,8 +51,7 @@ include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
 
 list(APPEND CORE_SOURCE_FILES src/core/load_data.cc
         src/core/image.cc
-        src/core/model.cc
-        src/core/classifier.cc)
+        src/core/model.cc)
 
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
                             src/visualizer/naive_bayes_app.cc
@@ -60,7 +59,8 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
 
 list(APPEND TEST_FILES tests/load_data_test.cc
         tests/image_test.cc
-        tests/model_test.cc)
+        tests/model_test.cc
+        tests/classifying_test.cc)
 
 add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES})
 target_include_directories(train-model PRIVATE include)
