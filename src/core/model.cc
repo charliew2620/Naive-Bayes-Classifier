@@ -6,14 +6,14 @@
 namespace naivebayes {
     using std::vector;
 
-    Model::Model(size_t image_size) : training_data_(TrainingData(image_size, 0)) {
+    Model::Model(size_t image_size) : load_data_(LoadData(image_size, 0)) {
         image_size_ = image_size;
         ResizePixelProbabilityVector();
 
         TrainModel();
     }
 
-    Model::Model(TrainingData &training_data) : training_data_(training_data) {
+    Model::Model(LoadData &training_data) : load_data_(training_data) {
         image_size_ = training_data.GetImageSize();
         ResizePixelProbabilityVector();
 
@@ -36,13 +36,13 @@ namespace naivebayes {
         for (size_t class_num = 0; class_num < kNumOfClasses; class_num++) {
             int label_count = 0;
 
-            for (const Image &image : training_data_.GetImages()) {
+            for (const Image &image : load_data_.GetImages()) {
                 if (image.GetLabel() == class_num) {
                     label_count++;
                 }
             }
             double numerator = kLaplaceSmoothing + label_count;
-            double denominator = kNumOfClasses * kLaplaceSmoothing + training_data_.GetImageCount();
+            double denominator = kNumOfClasses * kLaplaceSmoothing + load_data_.GetImageCount();
             class_probabilities_.push_back(numerator / denominator);
         }
     }
@@ -56,7 +56,7 @@ namespace naivebayes {
                     num_of_images_in_class_with_shade.clear();
                     num_of_images_in_class_with_shade.resize(kNumOfClasses);
 
-                    for (const Image &image : training_data_.GetImages()) {
+                    for (const Image &image : load_data_.GetImages()) {
                         // If the pixel of the image is equal to the shade, increments the vector's label count
                         // by one by calling the label of the current image
                         if (image.GetPixels()[row][col] == shade_num) {
@@ -66,7 +66,7 @@ namespace naivebayes {
                     for (size_t label = 0; label < kNumOfClasses; label++) {
                         double numerator = kLaplaceSmoothing + num_of_images_in_class_with_shade[label];
                         double denominator =
-                                kNumOfShades * kLaplaceSmoothing + training_data_.GetNumberOfImagesInClass(label);
+                                kNumOfShades * kLaplaceSmoothing + load_data_.GetNumberOfImagesInClass(label);
 
                         pixel_probabilities_[row][col][label][shade_num] = numerator / denominator;
                     }
@@ -177,5 +177,9 @@ namespace naivebayes {
 
     const vector<vector<vector<vector<double>>>> &Model::GetPixelProbabilities() const {
         return pixel_probabilities_;
+    }
+
+    const LoadData &Model::GetLoadData() const {
+        return load_data_;
     }
 }  // namespace naivebayes

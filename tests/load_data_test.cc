@@ -6,7 +6,7 @@
 
 TEST_CASE("Tests basic getters") {
     std::ifstream input("../../../data/5by5testfile.txt");
-    naivebayes::TrainingData training_data(5, 3);
+    naivebayes::LoadData training_data(5, 3);
     input >> training_data;
 
     SECTION("Tests getImageCount") {
@@ -28,7 +28,7 @@ TEST_CASE("Tests basic getters") {
 
 TEST_CASE("Tests operator >> and GetImages getter") {
     std::ifstream input("../../../data/5by5testfile.txt");
-    naivebayes::TrainingData training_data(5, 3);
+    naivebayes::LoadData training_data(5, 3);
     input >> training_data;
 
     //This tests if every image in the file is parsed correctly by creating a new 2d vector
@@ -83,7 +83,7 @@ TEST_CASE("Tests operator >> and GetImages getter") {
 
 TEST_CASE("Tests invalid character") {
     std::ifstream input("../../../data/invalidcharacter.txt");
-    naivebayes::TrainingData training_data(3, 3);
+    naivebayes::LoadData training_data(3, 3);
 
     REQUIRE_THROWS_AS(input >> training_data, std::invalid_argument);
 }

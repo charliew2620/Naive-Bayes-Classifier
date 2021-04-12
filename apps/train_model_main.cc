@@ -7,7 +7,7 @@
 int main(int argc, char** argv) {
     if (argc >= 2) {
         std::ifstream stream(argv[1]);
-        naivebayes::TrainingData training_data(28, 5000);
+        naivebayes::LoadData training_data(28, 5000);
         stream >> training_data;
 
         naivebayes::Model model(training_data);
@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
 
 
         std::ifstream stream1(argv[2]);
-        naivebayes::TrainingData testing_data(28, 1000);
+        naivebayes::LoadData testing_data(28, 1000);
         stream1 >> testing_data;
         
         std::cout << model.ComputeAccuracy(testing_data.GetImages());

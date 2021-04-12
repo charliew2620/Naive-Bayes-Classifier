@@ -13,7 +13,7 @@ namespace naivebayes {
          * Default constructor for Model passing in training data.
          * @param training_data passed in as parameter.
          */
-        explicit Model(TrainingData &training_data);
+        explicit Model(LoadData &training_data);
 
         /**
          * Constructor created to be used to load in file.
@@ -57,13 +57,15 @@ namespace naivebayes {
         const vector<double> &GetClassProbabilities() const;
 
         const vector<vector<vector<vector<double>>>> &GetPixelProbabilities() const;
+        
+        const LoadData &GetLoadData() const;
 
     private:
         const double kLaplaceSmoothing = 1;
         const size_t kNumOfClasses = 10;
         const size_t kNumOfShades = 3;
 
-        TrainingData training_data_;
+        LoadData load_data_;
 
         size_t image_size_;
 

@@ -7,7 +7,7 @@
 
 TEST_CASE("Tests class probabilities") {
     std::ifstream input("../../../data/5by5testfile.txt");
-    naivebayes::TrainingData training_data(5, 3);
+    naivebayes::LoadData training_data(5, 3);
     input >> training_data;
     naivebayes::Model model(training_data);
 
@@ -38,7 +38,7 @@ TEST_CASE("Tests class probabilities") {
 
 TEST_CASE("Tests pixel probabilities size") {
     std::ifstream input("../../../data/3by3testfile.txt");
-    naivebayes::TrainingData training_data(3, 3);
+    naivebayes::LoadData training_data(3, 3);
     input >> training_data;
     naivebayes::Model model(training_data);
 
@@ -61,7 +61,7 @@ TEST_CASE("Tests pixel probabilities size") {
 
 TEST_CASE("Tests pixel probabilities") {
     std::ifstream input("../../../data/3by3testfile.txt");
-    naivebayes::TrainingData training_data(3, 3);
+    naivebayes::LoadData training_data(3, 3);
     input >> training_data;
     naivebayes::Model model(training_data);
 
@@ -206,5 +206,71 @@ TEST_CASE("Tests pixel probabilities") {
                 }
             }
         }
+    }
+}
+
+TEST_CASE("Test saving and loading model") {
+    // Creates a model
+    std::ifstream stream("../../../data/5by5testfile.txt");
+    naivebayes::LoadData training_data(5, 3);
+    stream >> training_data;
+
+    naivebayes::Model model(training_data);
+
+    // Saves the model
+    std::ofstream os;
+    os.open("../../../data/testsave.txt");
+    os << model;
+    os.close();
+
+    // Loads the model again
+    std::ifstream ifstream("../../../data/testsave.txt");
+    ifstream >> model;
+
+
+    // Checks if all images are loaded correctly
+    SECTION("First image") {
+        std::vector<std::vector<int>> pixels
+                {
+                        {2, 2, 2, 1, 1},
+                        {1, 0, 0, 0, 2},
+                        {1, 0, 0, 0, 2},
+                        {1, 0, 0, 0, 2},
+                        {2, 2, 2, 2, 1}
+                };
+        naivebayes::Image image(0, 5, pixels);
+        REQUIRE(model.GetLoadData().GetImages()[0].GetLabel() == image.GetLabel());
+        REQUIRE(model.GetLoadData().GetImages()[0].GetImageSize() == image.GetImageSize());
+        REQUIRE(model.GetLoadData().GetImages()[0].GetPixels() == image.GetPixels());
+    }
+
+    SECTION("Second Image") {
+        std::vector<std::vector<int>> pixels
+                {
+                        {0, 0, 2, 0, 0},
+                        {0, 0, 1, 0, 0},
+                        {0, 0, 2, 0, 0},
+                        {0, 0, 2, 0, 0},
+                        {0, 0, 1, 0, 0}
+                };
+        naivebayes::Image image(1, 5, pixels);
+        REQUIRE(model.GetLoadData().GetImages()[1].GetLabel() == image.GetLabel());
+        REQUIRE(model.GetLoadData().GetImages()[1].GetImageSize() == image.GetImageSize());
+        REQUIRE(model.GetLoadData().GetImages()[1].GetPixels() == image.GetPixels());
+    }
+
+    SECTION("Third Image") {
+        std::vector<std::vector<int>> pixels
+                {
+                        {1, 2, 2, 1, 2},
+                        {0, 0, 0, 2, 0},
+                        {0, 0, 2, 0, 0},
+                        {0, 2, 0, 0, 0},
+                        {1, 0, 0, 0, 0}
+                };
+        naivebayes::Image image(7, 5, pixels);
+        REQUIRE(model.GetLoadData().GetImages()[2].GetLabel() == image.GetLabel());
+        REQUIRE(model.GetLoadData().GetImages()[2].GetImageSize() == image.GetImageSize());
+        REQUIRE(model.GetLoadData().GetImages()[2].GetPixels() == image.GetPixels());
     }
 }

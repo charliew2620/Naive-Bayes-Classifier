@@ -4,13 +4,13 @@ namespace naivebayes {
     using std::vector;
     using std::string;
 
-    TrainingData::TrainingData(size_t image_size, size_t image_count) {
+    LoadData::LoadData(size_t image_size, size_t image_count) {
         image_size_ = image_size;
         image_count_ = image_count;
         num_of_images_in_class_.resize(kMagicTen);
     }
 
-    std::istream &operator>>(std::istream &input, TrainingData &data) {
+    std::istream &operator>>(std::istream &input, LoadData &data) {
         for (size_t i = 0; i < data.image_count_; i++) {
             int label;
             input >> label;
@@ -27,7 +27,7 @@ namespace naivebayes {
         return input;
     }
 
-    vector<vector<int>> TrainingData::FillImageWithPixels(std::istream &input, TrainingData &data) {
+    vector<vector<int>> LoadData::FillImageWithPixels(std::istream &input, LoadData &data) {
         vector<vector<int>> pixels(data.image_size_);
         char pixel_character;
 
@@ -57,19 +57,19 @@ namespace naivebayes {
         return pixels;
     }
 
-    const size_t &TrainingData::GetImageCount() const {
+    const size_t &LoadData::GetImageCount() const {
         return image_count_;
     }
 
-    const size_t &TrainingData::GetImageSize() const {
+    const size_t &LoadData::GetImageSize() const {
         return image_size_;
     }
 
-    size_t TrainingData::GetNumberOfImagesInClass(int label) const {
+    size_t LoadData::GetNumberOfImagesInClass(int label) const {
         return num_of_images_in_class_[label];
     }
 
-    const vector<Image> &TrainingData::GetImages() const {
+    const vector<Image> &LoadData::GetImages() const {
         return num_of_images_per_label_;
     }
 }  // namespace naivebayes

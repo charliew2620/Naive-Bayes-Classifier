@@ -8,22 +8,22 @@ namespace naivebayes {
     using std::vector;
     using std::string;
 
-    class TrainingData {
+    class LoadData {
     public:
         /**
-         * TrainingData constructor.
+         * LoadData constructor.
          * @param image_size image size of an image.
          * @param image_count number of images in a file.
          */
-        TrainingData(size_t image_size, size_t image_count);
+        LoadData(size_t image_size, size_t image_count);
 
         /**
          * Operator used to parse data.
          * @param input istream parameter.
-         * @param data TrainingData object passed as parameter.
+         * @param data LoadData object passed as parameter.
          * @return input.
          */
-        friend std::istream &operator>>(std::istream &input, TrainingData &data);
+        friend std::istream &operator>>(std::istream &input, LoadData &data);
 
         // getters
         const vector<Image> &GetImages() const;
@@ -55,10 +55,10 @@ namespace naivebayes {
         /**
          * Helper method to fill image with pixels of different shades.
          * @param input istream parameter. 
-         * @param data TrainingData object passed as parameter.
+         * @param data LoadData object passed as parameter.
          * @return 2d vector of pixels.i
          */
-        vector<vector<int>> FillImageWithPixels(std::istream &input, TrainingData &data);
+        vector<vector<int>> FillImageWithPixels(std::istream &input, LoadData &data);
     };
 
 }  // namespace naivebayes

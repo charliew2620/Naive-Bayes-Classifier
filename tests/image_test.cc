@@ -6,7 +6,7 @@
 
 TEST_CASE("Tests GetImageSize") {
     std::ifstream input("../../../data/5by5testfile.txt");
-    naivebayes::TrainingData training_data(5, 3);
+    naivebayes::LoadData training_data(5, 3);
     input >> training_data;
     
     REQUIRE(training_data.GetImages()[0].GetImageSize() == 5);
@@ -16,7 +16,7 @@ TEST_CASE("Tests GetImageSize") {
 
 TEST_CASE("Tests GetPixels") {
     std::ifstream input("../../../data/5by5testfile.txt");
-    naivebayes::TrainingData training_data(5, 3);
+    naivebayes::LoadData training_data(5, 3);
     input >> training_data;
 
     REQUIRE(training_data.GetImages()[0].GetPixels() == std::vector<std::vector<int>>
@@ -47,7 +47,7 @@ TEST_CASE("Tests GetPixels") {
 
 TEST_CASE("Tests GetLabels") {
     std::ifstream input("../../../data/5by5testfile.txt");
-    naivebayes::TrainingData training_data(5, 3);
+    naivebayes::LoadData training_data(5, 3);
     input >> training_data;
     
     REQUIRE(training_data.GetImages()[0].GetLabel() == 0);

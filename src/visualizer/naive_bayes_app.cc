@@ -11,8 +11,6 @@ namespace naivebayes {
             std::ifstream os;
             os.open("../../../data/wheredidmyweekendgo.txt");
             os >> model_;
-            // open saved model
-            // read saved model
             ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
         }
 
