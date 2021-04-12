@@ -8,33 +8,36 @@
 
 namespace naivebayes {
 
-namespace visualizer {
-    using std::vector;
+    namespace visualizer {
+        using std::vector;
 
 /**
  * Allows a user to draw a digit on a sketchpad and uses Naive Bayes to
  * classify it.
  */
-class NaiveBayesApp : public ci::app::App {
- public:
-  NaiveBayesApp();
+        class NaiveBayesApp : public ci::app::App {
+        public:
+            NaiveBayesApp();
 
-  void draw() override;
-  void mouseDown(ci::app::MouseEvent event) override;
-  void mouseDrag(ci::app::MouseEvent event) override;
-  void keyDown(ci::app::KeyEvent event) override;
-  
-  // provided that you can see the entire UI on your screen.
-  const double kWindowSize = 875;
-  const double kMargin = 100;
-  const size_t kImageDimension = 28;
+            void draw() override;
 
- private:
-  Sketchpad sketchpad_;
-  int current_prediction_ = -1;
-  Model model_;
-};
+            void mouseDown(ci::app::MouseEvent event) override;
 
-}  // namespace visualizer
+            void mouseDrag(ci::app::MouseEvent event) override;
+
+            void keyDown(ci::app::KeyEvent event) override;
+
+            // provided that you can see the entire UI on your screen.
+            const double kWindowSize = 875;
+            const double kMargin = 100;
+            const size_t kImageDimension = 28;
+
+        private:
+            Sketchpad sketchpad_;
+            int current_prediction_ = -1;
+            Model model_;
+        };
+
+    }  // namespace visualizer
 
 }  // namespace naivebayes

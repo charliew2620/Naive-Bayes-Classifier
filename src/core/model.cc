@@ -89,7 +89,6 @@ namespace naivebayes {
     }
 
     void Model::OutputPixelProbabilities(std::ostream &output, Model &model) {
-        output << model.training_data_.GetImageSize() << std::endl;
         for (size_t row = 0; row < model.image_size_; row++) {
             for (size_t col = 0; col < model.image_size_; col++) {
                 for (size_t shade_num = 0; shade_num < model.kNumOfShades; shade_num++) {
@@ -126,19 +125,23 @@ namespace naivebayes {
         }
     }
 
-    const vector<double> &Model::GetClassProbabilities() const {
-        return class_probabilities_;
+    void Model::CalculateLikelihoodScores(const vector<vector<int>> &image) {
+        image_likelihood_scores_.clear();
+        for (double class_probability : class_probabilities_) {
+            image_likelihood_scores_.push_back(log(class_probability));
+        }
+
+        for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
+            for (size_t row = 0; row < image.size(); row++) {
+                for (size_t col = 0; col < image.size(); col++) {
+                    image_likelihood_scores_[label] += log(
+                            pixel_probabilities_[row][col][label][image[row][col]]);
+                }
+            }
+        }
     }
 
-    const vector<vector<vector<vector<double>>>> &Model::GetPixelProbabilities() const {
-        return pixel_probabilities_;
-    }
-
-    const TrainingData &Model::GetTrainingData() const {
-        return training_data_;
-    }
-
-    int Model::ClassifyImageWithLabel(const vector<vector<int>>& image) {
+    int Model::ClassifyImageWithLabel(const vector<vector<int>> &image) {
         double max = -DBL_MAX;
         int best_label;
         for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
@@ -150,20 +153,9 @@ namespace naivebayes {
         return best_label;
     }
 
-    void Model::CalculateLikelihoodScores(const vector<vector<int>>& image) {
-        image_likelihood_scores_.clear();
-        for (double class_probability : class_probabilities_) {
-            image_likelihood_scores_.push_back(log(class_probability));
-        }
-        
-        for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
-            for (size_t row = 0; row < image.size(); row++) {
-                for (size_t col = 0; col < image.size(); col++) {
-                    image_likelihood_scores_[label] += log(
-                           pixel_probabilities_[row][col][label][image[row][col]]);
-                }
-            }
-        }
+    int Model::FindLikeliestLabel(const vector<vector<int>> &image) {
+        CalculateLikelihoodScores(image);
+        return ClassifyImageWithLabel(image);
     }
 
     void Model::CheckAccuracy(const Image &image, int computed_label) {
@@ -178,9 +170,12 @@ namespace naivebayes {
         }
         return (double) correct_classification_ / images.size();
     }
-    
-    int Model::FindLikeliestLabel(const vector<vector<int>>& image){
-        CalculateLikelihoodScores(image);
-        return ClassifyImageWithLabel(image);
+
+    const vector<double> &Model::GetClassProbabilities() const {
+        return class_probabilities_;
+    }
+
+    const vector<vector<vector<vector<double>>>> &Model::GetPixelProbabilities() const {
+        return pixel_probabilities_;
     }
 }  // namespace naivebayes

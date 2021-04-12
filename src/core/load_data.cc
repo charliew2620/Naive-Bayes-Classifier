@@ -22,7 +22,7 @@ namespace naivebayes {
             // index at this vector incremented for getter
             data.num_of_images_in_class_[label]++;
             
-            data.images_.emplace_back(label, data.image_size_, pixels);
+            data.num_of_images_per_label_.emplace_back(label, data.image_size_, pixels);
         }
         return input;
     }
@@ -70,6 +70,6 @@ namespace naivebayes {
     }
 
     const vector<Image> &TrainingData::GetImages() const {
-        return images_;
+        return num_of_images_per_label_;
     }
 }  // namespace naivebayes

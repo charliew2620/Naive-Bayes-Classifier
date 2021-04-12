@@ -39,16 +39,24 @@ namespace naivebayes {
          */
         friend std::istream &operator>>(std::istream &input, Model &model);
 
+        /**
+         * Calculates and finds the label with the highest probability for a passed image.
+         * @param image to be assigned a label.
+         * @return predicted label of image.
+         */
+        int FindLikeliestLabel(const vector<vector<int>>& image);
+
+        /**
+         * Calculates and returns the accuracy of the classifier.
+         * @param images passed to determine accuracy.
+         * @return a decimal for accuracy.
+         */
+        double ComputeAccuracy(const vector<Image> &images);
+
         // getters
         const vector<double> &GetClassProbabilities() const;
 
         const vector<vector<vector<vector<double>>>> &GetPixelProbabilities() const;
-
-        const TrainingData &GetTrainingData() const;
-        
-        double ComputeAccuracy(const vector<Image> &images);
-
-        int FindLikeliestLabel(const vector<vector<int>>& image);
 
     private:
         const double kLaplaceSmoothing = 1;
@@ -61,6 +69,9 @@ namespace naivebayes {
 
         vector<double> class_probabilities_;
         vector<vector<vector<vector<double>>>> pixel_probabilities_;
+
+        vector<double> image_likelihood_scores_;
+        int correct_classification_ = 0;
 
         /**
          * Calls methods for class and pixel probabilities.
@@ -110,15 +121,25 @@ namespace naivebayes {
          */
         void ReadInPixelProbabilities(std::istream &input, Model &model);
 
-
+        /**
+         * Goes through all the probabilities and assigns the image with the label of highest probability.
+         * @param image to be classified.
+         * @return the most likely label.
+         */
         int ClassifyImageWithLabel(const vector<vector<int>>& image);
 
+        /**
+         * Calculates the likelihood scores of every label using equation given by document.
+         * @param image passed for calculating likelihood scores.
+         */
         void CalculateLikelihoodScores(const vector<vector<int>>& image);
 
+        /**
+         * Checks of the predicted label matches the actual label of the image.
+         * @param image to be checked to see if label is correct.
+         * @param computed_label the predicted label to be compare with image's actual label.
+         */
         void CheckAccuracy(const Image& image, int computed_label);
-
-        vector<double> image_likelihood_scores_;
-        int correct_classification_ = 0;
     };
 
 }  // namespace naivebayes
