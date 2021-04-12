@@ -61,6 +61,10 @@ void Sketchpad::Clear() {
   pixels_.clear();
 }
 
+    const std::vector<std::vector<int>> &Sketchpad::GetPixels() {
+        return pixels_;
+    }
+
 }  // namespace visualizer
 
 }  // namespace naivebayes

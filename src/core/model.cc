@@ -137,4 +137,58 @@ namespace naivebayes {
     const TrainingData &Model::GetTrainingData() const {
         return training_data_;
     }
+
+    int Model::ClassifyImageWithLabel(const Image &image) {
+        double max = -DBL_MAX;
+        int best_label;
+        for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
+            if (image_likelihood_scores_[label] > max) {
+                max = image_likelihood_scores_[label];
+                best_label = label;
+            }
+        }
+        return best_label;
+    }
+
+    void Model::CalculateLikelihoodScores(const Image &image) {
+        image_likelihood_scores_.clear();
+        for (double class_probability : class_probabilities_) {
+            image_likelihood_scores_.push_back(log(class_probability));
+        }
+        
+        for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
+            for (size_t row = 0; row < image.GetImageSize(); row++) {
+                for (size_t col = 0; col < image.GetImageSize(); col++) {
+                    image_likelihood_scores_[label] += log(
+                           pixel_probabilities_[row][col][label][image.GetPixels()[row][col]]);
+                }
+            }
+        }
+    }
+
+    void Model::CheckAccuracy(const Image &image, int computed_label) {
+        if (image.GetLabel() == computed_label) {
+            correct_classification_++;
+        } else {
+            //std::cout << computed_label << " " << image.GetLabel() << std::endl;
+        }
+    }
+
+    double Model::CalculateAccuracy() const {
+        return (double) correct_classification_ / 1000;
+    }
+
+    double Model::ComputeAccuracy(const vector<Image> &images) {
+        for (const Image &image : images) {
+            FindLikeliestLabel(image);
+        }
+        double a = CalculateAccuracy();
+        return a;
+    }
+    
+    int Model::FindLikeliestLabel(const Image& image){
+        CalculateLikelihoodScores(image);
+        CheckAccuracy(image, ClassifyImageWithLabel(image));
+        return ClassifyImageWithLabel(image);
+    }
 }  // namespace naivebayes

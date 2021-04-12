@@ -20,6 +20,8 @@ namespace naivebayes {
          * @param image_size of the image passed in.
          */
         explicit Model(size_t image_size);
+        
+        Model() = default;
 
         /**
          * Operator to create file.
@@ -43,6 +45,8 @@ namespace naivebayes {
         const vector<vector<vector<vector<double>>>> &GetPixelProbabilities() const;
 
         const TrainingData &GetTrainingData() const;
+        
+        double ComputeAccuracy(const vector<Image> &images);
 
     private:
         const double kLaplaceSmoothing = 1;
@@ -103,6 +107,20 @@ namespace naivebayes {
          * @param model Model object passed in as parameter.
          */
         void ReadInPixelProbabilities(std::istream &input, Model &model);
+
+
+        int ClassifyImageWithLabel(const Image &image);
+
+        void CalculateLikelihoodScores(const Image &image);
+
+        void CheckAccuracy(const Image &image, int computed_label);
+
+        double CalculateAccuracy() const;
+
+        vector<double> image_likelihood_scores_;
+        int correct_classification_ = 0;
+
+        int FindLikeliestLabel(const Image &image);
     };
 
 }  // namespace naivebayes

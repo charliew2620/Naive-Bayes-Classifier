@@ -17,6 +17,8 @@ namespace naivebayes {
          */
         TrainingData(size_t image_size, size_t image_count);
         
+        TrainingData() = default;
+        
         /**
          * Operator used to parse data.
          * @param input istream parameter.

@@ -4,6 +4,7 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "sketchpad.h"
+#include <core/model.h>
 
 namespace naivebayes {
 
@@ -29,7 +30,8 @@ class NaiveBayesApp : public ci::app::App {
 
  private:
   Sketchpad sketchpad_;
-  int current_prediction_ = -1;
+  double current_prediction_ = -1;
+  Model model_;
 };
 
 }  // namespace visualizer
