@@ -163,7 +163,7 @@ TEST_CASE("Tests pixel probabilities") {
     SECTION("Tests probabilities for label 7 total shade") {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                if (row == 0 && col == 2 || row == 1 && col ==1) {
+                if (row == 0 && col == 2 || row == 1 && col == 1) {
                     REQUIRE(model.GetPixelProbabilities()[row][col][7][2] == Approx(0.5).epsilon(0.01));
                 } else {
                     REQUIRE(model.GetPixelProbabilities()[row][col][7][2] == Approx(0.25).epsilon(0.01));
@@ -223,10 +223,9 @@ TEST_CASE("Test saving and loading model") {
     os << model;
     os.close();
 
-    // Loads the model again
+    // Loads the saved model from text file
     std::ifstream ifstream("../../../data/testsave.txt");
     ifstream >> model;
-
 
     // Checks if all images are loaded correctly
     SECTION("First image") {

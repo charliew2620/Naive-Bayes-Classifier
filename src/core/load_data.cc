@@ -21,7 +21,7 @@ namespace naivebayes {
 
             // index at this vector incremented for getter
             data.num_of_images_in_class_[label]++;
-            
+
             data.num_of_images_per_label_.emplace_back(label, data.image_size_, pixels);
         }
         return input;

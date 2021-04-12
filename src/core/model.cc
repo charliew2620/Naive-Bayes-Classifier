@@ -182,4 +182,8 @@ namespace naivebayes {
     const LoadData &Model::GetLoadData() const {
         return load_data_;
     }
+
+    const vector<double> &Model::GetLikelihoodScores() const {
+        return image_likelihood_scores_;
+    }
 }  // namespace naivebayes

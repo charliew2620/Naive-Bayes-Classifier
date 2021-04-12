@@ -20,7 +20,7 @@ namespace naivebayes {
          * @param image_size of the image passed in.
          */
         explicit Model(size_t image_size);
-        
+
 //        Model() = default;
 
         /**
@@ -44,7 +44,7 @@ namespace naivebayes {
          * @param image to be assigned a label.
          * @return predicted label of image.
          */
-        int FindLikeliestLabel(const vector<vector<int>>& image);
+        int FindLikeliestLabel(const vector<vector<int>> &image);
 
         /**
          * Calculates and returns the accuracy of the classifier.
@@ -57,8 +57,10 @@ namespace naivebayes {
         const vector<double> &GetClassProbabilities() const;
 
         const vector<vector<vector<vector<double>>>> &GetPixelProbabilities() const;
-        
+
         const LoadData &GetLoadData() const;
+        
+        const vector<double> &GetLikelihoodScores() const;
 
     private:
         const double kLaplaceSmoothing = 1;
@@ -128,20 +130,20 @@ namespace naivebayes {
          * @param image to be classified.
          * @return the most likely label.
          */
-        int ClassifyImageWithLabel(const vector<vector<int>>& image);
+        int ClassifyImageWithLabel(const vector<vector<int>> &image);
 
         /**
          * Calculates the likelihood scores of every label using equation given by document.
          * @param image passed for calculating likelihood scores.
          */
-        void CalculateLikelihoodScores(const vector<vector<int>>& image);
+        void CalculateLikelihoodScores(const vector<vector<int>> &image);
 
         /**
          * Checks of the predicted label matches the actual label of the image.
          * @param image to be checked to see if label is correct.
          * @param computed_label the predicted label to be compare with image's actual label.
          */
-        void CheckAccuracy(const Image& image, int computed_label);
+        void CheckAccuracy(const Image &image, int computed_label);
     };
 
 }  // namespace naivebayes
