@@ -3,12 +3,13 @@
 namespace naivebayes {
 
 namespace visualizer {
+    using std::vector;
 
 NaiveBayesApp::NaiveBayesApp()
     : sketchpad_(glm::vec2(kMargin, kMargin), kImageDimension,
-                 kWindowSize - 2 * kMargin) {
+                 kWindowSize - 2 * kMargin), model_(kImageDimension) {
     std::ifstream os;
-    os.open("../data/wheredidmyweekendgo.txt");
+    os.open("../../../data/wheredidmyweekendgo.txt");
     os >> model_;
     // open saved model
     // read saved model
@@ -45,7 +46,7 @@ void NaiveBayesApp::keyDown(ci::app::KeyEvent event) {
       // ask your classifier to classify the image that's currently drawn on the
       // sketchpad and update current_prediction_
       
-      current_prediction_ = model_.;
+      current_prediction_ = model_.FindLikeliestLabel(sketchpad_.GetPixels());
       break;
 
     case ci::app::KeyEvent::KEY_DELETE:

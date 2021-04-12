@@ -16,6 +16,15 @@ int main(int argc, char** argv) {
         std::ofstream os;
         os.open("../data/wheredidmyweekendgo.txt");
         os << model;
+
+
+        std::ifstream stream1(argv[2]);
+        naivebayes::TrainingData testing_data(28, 1000);
+        stream1 >> testing_data;
+
+//        naivebayes::Model model1(testing_data);
+        
+        std::cout << model.ComputeAccuracy(testing_data.GetImages());
         os.close();
         return 0;
     }

@@ -9,6 +9,7 @@
 namespace naivebayes {
 
 namespace visualizer {
+    using std::vector;
 
 /**
  * Allows a user to draw a digit on a sketchpad and uses Naive Bayes to
@@ -30,7 +31,7 @@ class NaiveBayesApp : public ci::app::App {
 
  private:
   Sketchpad sketchpad_;
-  double current_prediction_ = -1;
+  int current_prediction_ = -1;
   Model model_;
 };
 

@@ -138,7 +138,7 @@ namespace naivebayes {
         return training_data_;
     }
 
-    int Model::ClassifyImageWithLabel(const Image &image) {
+    int Model::ClassifyImageWithLabel(const vector<vector<int>>& image) {
         double max = -DBL_MAX;
         int best_label;
         for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
@@ -150,17 +150,17 @@ namespace naivebayes {
         return best_label;
     }
 
-    void Model::CalculateLikelihoodScores(const Image &image) {
+    void Model::CalculateLikelihoodScores(const vector<vector<int>>& image) {
         image_likelihood_scores_.clear();
         for (double class_probability : class_probabilities_) {
             image_likelihood_scores_.push_back(log(class_probability));
         }
         
         for (size_t label = 0; label < image_likelihood_scores_.size(); label++) {
-            for (size_t row = 0; row < image.GetImageSize(); row++) {
-                for (size_t col = 0; col < image.GetImageSize(); col++) {
+            for (size_t row = 0; row < image.size(); row++) {
+                for (size_t col = 0; col < image.size(); col++) {
                     image_likelihood_scores_[label] += log(
-                           pixel_probabilities_[row][col][label][image.GetPixels()[row][col]]);
+                           pixel_probabilities_[row][col][label][image[row][col]]);
                 }
             }
         }
@@ -169,26 +169,18 @@ namespace naivebayes {
     void Model::CheckAccuracy(const Image &image, int computed_label) {
         if (image.GetLabel() == computed_label) {
             correct_classification_++;
-        } else {
-            //std::cout << computed_label << " " << image.GetLabel() << std::endl;
         }
-    }
-
-    double Model::CalculateAccuracy() const {
-        return (double) correct_classification_ / 1000;
     }
 
     double Model::ComputeAccuracy(const vector<Image> &images) {
         for (const Image &image : images) {
-            FindLikeliestLabel(image);
+            CheckAccuracy(image, FindLikeliestLabel(image.GetPixels()));
         }
-        double a = CalculateAccuracy();
-        return a;
+        return (double) correct_classification_ / images.size();
     }
     
-    int Model::FindLikeliestLabel(const Image& image){
+    int Model::FindLikeliestLabel(const vector<vector<int>>& image){
         CalculateLikelihoodScores(image);
-        CheckAccuracy(image, ClassifyImageWithLabel(image));
         return ClassifyImageWithLabel(image);
     }
 }  // namespace naivebayes
