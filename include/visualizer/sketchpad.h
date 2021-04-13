@@ -52,6 +52,8 @@ namespace naivebayes {
             // getter
             const std::vector<std::vector<int>> &GetPixels();
 
+          void ToggleCurrentBrushColor();
+
         private:
             glm::vec2 top_left_corner_;
 
@@ -63,8 +65,8 @@ namespace naivebayes {
             double brush_radius_;
 
             std::vector<std::vector<int>> pixels_;
-
-            int kBlackPixelValue = 2;
+            
+            int current_brush_color_ = 2;
         };
 
     }  // namespace visualizer

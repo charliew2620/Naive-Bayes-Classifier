@@ -15,8 +15,7 @@ TEST_CASE("Tests accuracy for given test file") {
     std::ofstream os;
     os.open("../../../data/wheredidmyweekendgo.txt");
     os << model;
-
-
+    
     std::ifstream stream1("../../../data/testimagesandlabels.txt");
     naivebayes::LoadData testing_data(28, 1000);
     stream1 >> testing_data;

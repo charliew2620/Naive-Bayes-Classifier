@@ -6,6 +6,10 @@ namespace naivebayes {
 
         using glm::vec2;
 
+    void Sketchpad::ToggleCurrentBrushColor() {
+            current_brush_color_ = current_brush_color_ == 1 ? 2: 1;
+        }
+
         Sketchpad::Sketchpad(const vec2 &top_left_corner, size_t num_pixels_per_side,
                              double sketchpad_size, double brush_radius)
                 : top_left_corner_(top_left_corner),
@@ -18,9 +22,14 @@ namespace naivebayes {
         void Sketchpad::Draw() const {
             for (size_t row = 0; row < num_pixels_per_side_; ++row) {
                 for (size_t col = 0; col < num_pixels_per_side_; ++col) {
-                    if (pixels_[row][col]) {
+                    switch(pixels_[row][col]) {
+                      case 2:
                         ci::gl::color(ci::Color::gray(0.3f));
-                    } else {
+                        break;
+                      case 1:
+                        ci::gl::color(ci::Color::gray(0.8f));
+                        break;
+                      default:
                         ci::gl::color(ci::Color("white"));
                     }
 
@@ -49,7 +58,7 @@ namespace naivebayes {
 
                     if (glm::distance(brush_sketchpad_coords, pixel_center) <=
                         brush_radius_) {
-                        pixels_[row][col] = kBlackPixelValue;
+                        pixels_[row][col] = current_brush_color_;
                     }
                 }
             }
